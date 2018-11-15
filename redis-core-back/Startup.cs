@@ -24,6 +24,12 @@ namespace redis_core_back
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            //https://joonasw.net/view/redis-cache-session-store
+            //services.AddDistributedRedisCache(option =>
+            //{
+            //    option.Configuration = Configuration.GetConnectionString("Redis");
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +40,20 @@ namespace redis_core_back
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            // https://stackoverflow.com/questions/40908949/asp-net-core-cors-webapi-no-access-control-allow-origin-header
+            app.UseCors(builder =>
+            builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Redis}");
+            });
+
         }
     }
 }

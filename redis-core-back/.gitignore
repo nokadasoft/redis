@@ -12,6 +12,7 @@
 /build
 /bin
 /obj/Debug
+/.vs/redis-core-back
 
 # misc
 .DS_Store

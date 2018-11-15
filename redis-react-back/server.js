@@ -35,23 +35,23 @@ app.get("/names", (req, res, next) => {
     res.json(["Tony","Lisa","Michael","Ginger","Food"]);
 });
 
-app.get("/redisInc", (req, res, next) => {
+app.put("/api/redis", (req, res, next) => {
     redisClient.incr("someString", function () {
-        console.log("after incr");
+        console.log("redisClient.incr");
         res.json("OK"); 
     });
 });
 
-app.get("/redisReset", (req, res, next) => {
+app.delete("/api/redis", (req, res, next) => {
     redisClient.set("someString", "0", function () {
-        console.log("after set");
+        console.log("redisClient.set 0");
         res.json("OK"); 
     });
 });
 
-app.get("/redisGet", (req, res, next) => {
+app.get("/api/redis", (req, res, next) => {
     redisClient.get("someString", function (err, v) {
-        console.log("after get " + err + " - " + v);
+        console.log("redisClient.get " + v);
         res.json(v);
     });
 });

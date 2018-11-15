@@ -8,7 +8,10 @@ var domain = "http://localhost:3001/";
 
 class ButtonReset extends React.Component {
   handleClick1() {
-    fetch(domain + "redisReset");
+    fetch(domain + "api/redis", {
+      method: 'delete'
+    })
+      .then(response => response);
   }
 
   render() {
@@ -22,9 +25,10 @@ class ButtonReset extends React.Component {
 
 class ButtonIncrement extends React.Component {
   handleClick2() {
-    var addrInc = domain + "redisInc";
-    console.log(addrInc);
-    fetch(addrInc);
+    fetch(domain + "api/redis", {
+      method: 'put'
+    })
+      .then(response => response);
   }
 
   render() {
@@ -45,7 +49,7 @@ class ButtonGet extends React.Component {
   }
 
   handleClick3() {
-    fetch(domain + "redisGet")
+    fetch(domain + "api/redis")
       .then(response => response.json())
       .then(data => this.setState({ displayValue: data }));
   }
