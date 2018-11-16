@@ -3,8 +3,8 @@ import './App.css';
 
 // enable docker and run redis to be available for back-end
 
-//var domain = "http://192.168.1.97:3001/";
-var domain = "http://localhost:3001/";
+var domain = "http://192.168.1.19:3001/";
+//var domain = "http://localhost:3001/";
 
 class ButtonReset extends React.Component {
   handleClick1() {
