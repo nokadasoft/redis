@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import './App.css';
 
 // enable docker and run redis to be available for back-end
+// sudo docker start redis
 
-var domain = "http://192.168.1.19:3001/";
 //var domain = "http://localhost:3001/";
+const domain = "http://192.168.1.19";
+const portNodeJS = 3001;
+const portCoreCS = 3002;
 
 class ButtonReset extends React.Component {
-  handleClick1() {
-    fetch(domain + "api/redis", {
-      method: 'delete'
-    })
+  handleClick(url) {
+    console.log("DELETE " + url);
+    fetch(url, { method: 'delete' })
       .then(response => response);
   }
 
   render() {
+    var url = this.props.address + "/api/redis";
     return (
-      <button onClick={() => this.handleClick1()} style={{ float: 'left' }}>
+      <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
         Reset
       </button>
     );
@@ -24,16 +27,16 @@ class ButtonReset extends React.Component {
 }
 
 class ButtonIncrement extends React.Component {
-  handleClick2() {
-    fetch(domain + "api/redis", {
-      method: 'put'
-    })
+  handleClick(url) {
+    console.log("PUT " + url);
+    fetch(url, { method: 'put' })
       .then(response => response);
   }
 
   render() {
+    var url = this.props.address + "/api/redis";
     return (
-      <button onClick={() => this.handleClick2()} style={{ float: 'left' }}>
+      <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
         Increment
       </button>
     );
@@ -48,16 +51,18 @@ class ButtonGet extends React.Component {
     };
   }
 
-  handleClick3() {
-    fetch(domain + "api/redis")
+  handleClick(url) {
+    console.log("GET " + url);
+    fetch(url)
       .then(response => response.json())
       .then(data => this.setState({ displayValue: data }));
   }
 
   render() {
+    var url = this.props.address + "/api/redis";
     return (
       <div>
-        <button onClick={() => this.handleClick3()} style={{ float: 'left' }}>
+        <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
           Get
         </button>
         <div style={{ float: 'left' }}>
@@ -68,16 +73,39 @@ class ButtonGet extends React.Component {
   }
 }
 
-class App extends Component {
+class DockerLesson extends Component {
   render() {
+    var addressNodeJS = domain + ":" + portNodeJS;
+    var addressCoreCS = domain + ":" + portCoreCS;
     return (
-      <div className="App">
-        <ButtonReset />
-        <ButtonIncrement />
-        <ButtonGet />
+      <div className="App" >
+        <table style={{ width: '400px' }}>
+        <tbody>
+          <tr>
+            <td>
+              NodeJS [address: {addressNodeJS}]
+            </td>
+            <td>
+              <ButtonReset address={addressNodeJS}/>
+              <ButtonIncrement address={addressNodeJS}/>
+              <ButtonGet address={addressNodeJS}/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              CoreSC [address: {addressCoreCS}]
+            </td>
+            <td>
+              <ButtonReset address={addressCoreCS}/>
+              <ButtonIncrement address={addressCoreCS}/>
+              <ButtonGet address={addressCoreCS}/>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     );
   }
 }
 
-export default App;
+export default DockerLesson;
