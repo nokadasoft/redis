@@ -1,8 +1,8 @@
 var express = require("express");
 var app = express();
 
-var redis = require('redis'),
-    redisClient = redis.createClient();
+var redis = require('redis');
+var redisClient = redis.createClient(process.env.REDIS_URL);
 
 redisClient.on("error", function (err) {
     console.log("RedisError " + err);
@@ -27,11 +27,12 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.listen(3001, () => {
-    console.log("Server running on port 3001");
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
-app.get("/names", (req, res, next) => {
+app.get("/api/values", (req, res, next) => {
     res.json(["Tony","Lisa","Michael","Ginger","Food"]);
 });
 

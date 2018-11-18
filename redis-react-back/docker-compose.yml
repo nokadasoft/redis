@@ -1,0 +1,23 @@
+#version: "3"
+
+#services:
+redis:
+    image: redis
+    container_name: react_redis_cache_3001
+    expose:
+      - 6379
+
+back_nodejs:
+    build: ./
+    volumes:
+      - ./:/var/www/app
+    links:
+      - redis
+    ports:
+      - 3001:3001
+    environment:
+      - REDIS_URL=redis://react_redis_cache_3001
+      - NODE_ENV=development
+      - PORT=3001
+    command:
+      sh -c 'npm install && node server.js'

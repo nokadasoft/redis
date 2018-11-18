@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using ServiceStack.Redis;
 
 namespace redis_core_back.Controllers
@@ -7,7 +8,27 @@ namespace redis_core_back.Controllers
     public class RedisController : Controller
     {
         //https://docs.servicestack.net/netcore-redis
-        private RedisManagerPool redisManager = new RedisManagerPool("localhost:6379");
+        private RedisManagerPool _redisManager = null;
+        private RedisManagerPool redisManager {
+            get 
+            {
+                if (_redisManager == null){
+                    var redisUrl = Environment.GetEnvironmentVariable("REDIS_URL");
+                    //var port = Environment.GetEnvironmentVariable("PORT");
+
+                    var url = redisUrl == null? "localhost:6379": redisUrl;
+                    Console.WriteLine("Redis endpoint: "+url);
+                    try{
+                        _redisManager = new RedisManagerPool(url);
+                    }
+                    catch(Exception ex){
+                        Console.WriteLine(ex.ToString());
+                    }
+                }
+
+                return _redisManager;
+            }
+        }
         
         // GET api/redis
         [HttpGet]

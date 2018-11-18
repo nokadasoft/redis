@@ -1,5 +1,5 @@
 {
-  "name": "data-api",
+  "name": "redis-react-back",
   "version": "1.0.0",
   "description": "RESTfull dataApi",
   "main": "index.js",

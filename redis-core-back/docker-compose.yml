@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  redis:
+    image: redis
+    container_name: react_redis_cache_3002
+    expose:
+      - 6379
+
+  back_codesc:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    links:
+      - redis
+    ports:
+      - 3002:80
+    environment:
+      - REDIS_URL=redis://react_redis_cache_3002
+      - NODE_ENV=development
+      - PORT=3002
