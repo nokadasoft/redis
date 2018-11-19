@@ -4,8 +4,8 @@ import './App.css';
 // enable docker and run redis to be available for back-end
 // sudo docker start redis
 
-//var domain = "http://localhost:3001/";
-const domain = "http://192.168.1.19";
+var domain = "http://localhost";
+//const domain = "http://192.168.1.19";
 const portNodeJS = 3001;
 const portCoreCS = 3002;
 
@@ -75,6 +75,8 @@ class ButtonGet extends React.Component {
 
 class DockerLesson extends Component {
   render() {
+    //process.env.BACKEND_URL_NODEJS
+    //process.env.BACKEND_URL_CODESC
     var addressNodeJS = domain + ":" + portNodeJS;
     var addressCoreCS = domain + ":" + portCoreCS;
     return (

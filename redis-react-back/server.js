@@ -11,18 +11,14 @@ redisClient.on("error", function (err) {
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    
+    res.setHeader('Access-Control-Allow-Origin', '*');    
     // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');    
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');    
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    
+    res.setHeader('Access-Control-Allow-Credentials', true);    
     // Pass to next layer of middleware
     next();
 });
@@ -38,21 +34,21 @@ app.get("/api/values", (req, res, next) => {
 
 app.put("/api/redis", (req, res, next) => {
     redisClient.incr("someString", function () {
-        console.log("redisClient.incr");
+        console.log("redisClient.incr [+1] (" + process.env.REDIS_URL + ")");
         res.json("OK"); 
     });
 });
 
 app.delete("/api/redis", (req, res, next) => {
     redisClient.set("someString", "0", function () {
-        console.log("redisClient.set 0");
+        console.log("redisClient.set [0] (" + process.env.REDIS_URL + ")");
         res.json("OK"); 
     });
 });
 
 app.get("/api/redis", (req, res, next) => {
     redisClient.get("someString", function (err, v) {
-        console.log("redisClient.get " + v);
+        console.log("redisClient.get [" + v + "] (" + process.env.REDIS_URL + ")");
         res.json(v);
     });
 });

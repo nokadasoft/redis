@@ -8,35 +8,23 @@ namespace redis_core_back.Controllers
     public class RedisController : Controller
     {
         //https://docs.servicestack.net/netcore-redis
-        private RedisManagerPool _redisManager = null;
-        private RedisManagerPool redisManager {
-            get 
+        private string RedisUrl 
+        { 
+            get
             {
-                if (_redisManager == null){
-                    var redisUrl = Environment.GetEnvironmentVariable("REDIS_URL");
-                    //var port = Environment.GetEnvironmentVariable("PORT");
-
-                    var url = redisUrl == null? "localhost:6379": redisUrl;
-                    Console.WriteLine("Redis endpoint: "+url);
-                    try{
-                        _redisManager = new RedisManagerPool(url);
-                    }
-                    catch(Exception ex){
-                        Console.WriteLine(ex.ToString());
-                    }
-                }
-
-                return _redisManager;
+                var redisUrl = Environment.GetEnvironmentVariable("REDIS_URL");
+                return redisUrl == null? "localhost:6379": redisUrl;
             }
         }
-        
         // GET api/redis
         [HttpGet]
         public string Get()
         {            
-            using (var client = redisManager.GetClient())
+            var url = RedisUrl;
+            using (var client = GetRedisManager(url).GetClient())
             {
                 var value = client.Get<string>("someString");
+                Console.WriteLine($"redisClient.get [{value}] ({url})");
                 return value;
             }
         }
@@ -45,9 +33,11 @@ namespace redis_core_back.Controllers
         [HttpPut]
         public void Put()
         {
-            using (var client = redisManager.GetClient())
+            var url = RedisUrl;
+            using (var client = GetRedisManager(url).GetClient())
             {
                 client.Increment("someString", 1);
+                Console.WriteLine($"redisClient.incr [+1] ({url})");
             }
         }
 
@@ -55,10 +45,18 @@ namespace redis_core_back.Controllers
         [HttpDelete]
         public void Delete()
         {
-            using (var client = redisManager.GetClient())
+            var url = RedisUrl;
+            using (var client = GetRedisManager(url).GetClient())
             {
                 client.Set("someString", 0);
+                Console.WriteLine($"redisClient.set [0] ({url})");
             }
         }
+
+        private RedisManagerPool GetRedisManager(string url)
+        {
+            return new RedisManagerPool(url);
+        }
+
     }
 }

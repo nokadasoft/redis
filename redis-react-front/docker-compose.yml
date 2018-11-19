@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  redis_service:
+    image: redis
+    container_name: react_redis_cache
+    expose:
+      - 6379
+
+  backend_nodejs_service:
+    build: ../redis-react-back
+    container_name: backend_nodejs
+    volumes:
+      - ../redis-react-back/:/var/www/app
+    links:
+      - redis_service
+    ports:
+      - 3001:3001
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://react_redis_cache
+      - PORT=3001
+    command:
+      sh -c 'npm install && node server.js'
+
+  back_codecs_service:
+    build: ../redis-core-back
+    container_name: backend_codecs
+    volumes:
+      - ../redis-core-back/:/var/www/app
+    links:
+      - redis_service
+    ports:
+      - 3002:80
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://react_redis_cache
+      - PORT=3002
+
+# https://github.com/mrcoles/node-react-docker-compose/blob/master/docker-compose.yml
+  frontend_react:
+    image: frontend-react
+    container_name: frontend-react
+    build: .
+    links:
+      - backend_nodejs_service
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    environment:
+      - BACKEND_URL_NODEJS=backend_nodejs_service://backend_nodejs
+      - NODE_ENV=development
+      - PORT=3000
+    command:
+      npm start
