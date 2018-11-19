@@ -8,7 +8,7 @@ services:
       - 6379
 
   backend_nodejs_service:
-    build: ../redis-node-back
+    build: ./backend-node
     container_name: backend_nodejs
     volumes:
       - ../redis-react-back/:/var/www/app
@@ -24,7 +24,7 @@ services:
       sh -c 'npm install && node server.js'
 
   backend_corecs_service:
-    build: ../redis-core-back
+    build: ./backend-core
     container_name: backend_corecs
     volumes:
       - ../redis-core-back/:/var/www/app
@@ -41,17 +41,17 @@ services:
   frontend_react:
     image: frontend-react
     container_name: frontend-react
-    build: .
+    build: ./frontend-react
     links:
       - backend_nodejs_service
       - backend_corecs_service
     ports:
       - 3000:3000
     volumes:
-      - .:/app
+      - ./frontend-react:/app
     environment:
-      - REACT_APP_BACKEND_URL_NODEJS=backend_nodejs_service://backend_nodejs
-      - REACT_APP_BACKEND_URL_CORECS=backend_corecs_service://backend_corecs
+      - REACT_APP_BACKEND_URL_NODEJS=http://192.168.1.19:3001
+      - REACT_APP_BACKEND_URL_CORECS=http://192.168.1.19:3002
       - NODE_ENV=development
       - PORT=3000
     command:
