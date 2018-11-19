@@ -1,13 +1,22 @@
+// https://github.com/mrcoles/node-react-docker-compose
+
 import React, { Component } from 'react';
 import './App.css';
 
-// enable docker and run redis to be available for back-end
-// sudo docker start redis
-
 var domain = "http://localhost";
 //const domain = "http://192.168.1.19";
-const portNodeJS = 3001;
-const portCoreCS = 3002;
+
+//https://www.linkedin.com/pulse/dockerizing-your-react-app-mike-sparr/
+var addressNodeJS = process.env.REACT_APP_BACKEND_URL_NODEJS;
+var addressCoreCS = process.env.REACT_APP_BACKEND_URL_CORECS;
+
+if (addressNodeJS == null) {
+  addressNodeJS = domain + ":3001";
+}
+
+if (addressCoreCS == null) {
+  addressCoreCS = domain + ":3002";
+}
 
 class ButtonReset extends React.Component {
   handleClick(url) {
@@ -75,10 +84,6 @@ class ButtonGet extends React.Component {
 
 class DockerLesson extends Component {
   render() {
-    //process.env.BACKEND_URL_NODEJS
-    //process.env.BACKEND_URL_CODESC
-    var addressNodeJS = domain + ":" + portNodeJS;
-    var addressCoreCS = domain + ":" + portCoreCS;
     return (
       <div className="App" >
         <table style={{ width: '400px' }}>
