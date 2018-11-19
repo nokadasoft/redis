@@ -10,8 +10,8 @@ services:
   backend_nodejs_service:
     build: ./backend-node
     container_name: backend_nodejs
-    volumes:
-      - ../redis-react-back/:/var/www/app
+#    volumes:
+#      - ./backend-node/:/app
     links:
       - redis_service
     ports:
@@ -20,14 +20,13 @@ services:
       - NODE_ENV=development
       - REDIS_URL=redis://react_redis_cache
       - PORT=3001
-    command:
-      sh -c 'npm install && node server.js'
+    command: npm run start
 
   backend_corecs_service:
     build: ./backend-core
     container_name: backend_corecs
-    volumes:
-      - ../redis-core-back/:/var/www/app
+#    volumes:
+#      - ./backend-core/:/app
     links:
       - redis_service
     ports:
@@ -42,17 +41,18 @@ services:
     image: frontend-react
     container_name: frontend-react
     build: ./frontend-react
-    links:
+    depends_on:
       - backend_nodejs_service
       - backend_corecs_service
     ports:
       - 3000:3000
-    volumes:
-      - ./frontend-react:/app
+#    volumes:
+#      - ./frontend-react:/app
     environment:
       - REACT_APP_BACKEND_URL_NODEJS=http://192.168.1.19:3001
       - REACT_APP_BACKEND_URL_CORECS=http://192.168.1.19:3002
+#      - REACT_APP_BACKEND_URL_NODEJS=backend_nodejs_service://backend_nodejs:3001
+#      - REACT_APP_BACKEND_URL_CORECS=backend_corecs_service://backend_corecs:3002
       - NODE_ENV=development
       - PORT=3000
-    command:
-      npm start
+    command: npm run start
