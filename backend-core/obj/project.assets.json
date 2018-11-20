@@ -13075,11 +13075,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\redis\\redis-core-back\\redis-core-back.csproj",
+      "projectUniqueName": "c:\\Git\\redis\\backend-core\\redis-core-back.csproj",
       "projectName": "redis-core-back",
-      "projectPath": "C:\\Git\\redis\\redis-core-back\\redis-core-back.csproj",
+      "projectPath": "c:\\Git\\redis\\backend-core\\redis-core-back.csproj",
       "packagesPath": "C:\\Users\\norbert\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\redis\\redis-core-back\\obj\\",
+      "outputPath": "c:\\Git\\redis\\backend-core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

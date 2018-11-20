@@ -3,13 +3,13 @@ version: "3"
 services:
   redis_service:
     image: redis
-    container_name: react_redis_cache
+    container_name: react_redis_cache_container
     expose:
       - 6379
 
   backend_nodejs_service:
     build: ./backend-node
-    container_name: backend_nodejs
+    container_name: backend_nodejs_container
 #    volumes:
 #      - ./backend-node/:/app
     links:
@@ -18,13 +18,13 @@ services:
       - 3001:3001
     environment:
       - NODE_ENV=development
-      - REDIS_URL=redis://react_redis_cache
+      - REDIS_URL=redis://react_redis_cache_container
       - PORT=3001
     command: npm run start
 
   backend_corecs_service:
     build: ./backend-core
-    container_name: backend_corecs
+    container_name: backend_corecs_container
 #    volumes:
 #      - ./backend-core/:/app
     links:
@@ -33,13 +33,13 @@ services:
       - 3002:80
     environment:
       - NODE_ENV=development
-      - REDIS_URL=redis://react_redis_cache
+      - REDIS_URL=redis://react_redis_cache_container
       - PORT=3002
 
 # https://github.com/mrcoles/node-react-docker-compose/blob/master/docker-compose.yml
   frontend_react:
     image: frontend-react
-    container_name: frontend-react
+    container_name: frontend_react_container
     build: ./frontend-react
     depends_on:
       - backend_nodejs_service
@@ -49,8 +49,8 @@ services:
 #    volumes:
 #      - ./frontend-react:/app
     environment:
-      - REACT_APP_BACKEND_URL_NODEJS=http://192.168.1.19:3001
-      - REACT_APP_BACKEND_URL_CORECS=http://192.168.1.19:3002
+      - REACT_APP_BACKEND_URL_NODEJS=http://192.168.0.160:3001
+      - REACT_APP_BACKEND_URL_CORECS=http://192.168.0.160:3002
 #      - REACT_APP_BACKEND_URL_NODEJS=backend_nodejs_service://backend_nodejs:3001
 #      - REACT_APP_BACKEND_URL_CORECS=backend_corecs_service://backend_corecs:3002
       - NODE_ENV=development
