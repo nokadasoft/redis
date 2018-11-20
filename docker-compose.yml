@@ -15,11 +15,11 @@ services:
     links:
       - redis_service
     ports:
-      - 3001:3001
+      - 8001:8001
     environment:
-      - NODE_ENV=development
+#      - NODE_ENV=development
       - REDIS_URL=redis://react_redis_cache_container
-      - PORT=3001
+      - PORT=8001
     command: npm run start
 
   backend_corecs_service:
@@ -30,14 +30,13 @@ services:
     links:
       - redis_service
     ports:
-      - 3002:80
+      - 8002:80
     environment:
-      - NODE_ENV=development
-      - REDIS_URL=redis://react_redis_cache_container
-      - PORT=3002
+#      - NODE_ENV=development
+      - REDIS_URL=redis://react_redis_cache_container      
 
 # https://github.com/mrcoles/node-react-docker-compose/blob/master/docker-compose.yml
-  frontend_react:
+  frontend_react_service:
     image: frontend-react
     container_name: frontend_react_container
     build: ./frontend-react
@@ -46,13 +45,18 @@ services:
       - backend_corecs_service
     ports:
       - 3000:3000
+    links:
+      - backend_nodejs_service
+      - backend_corecs_service
 #    volumes:
 #      - ./frontend-react:/app
     environment:
-      - REACT_APP_BACKEND_URL_NODEJS=http://192.168.0.160:3001
-      - REACT_APP_BACKEND_URL_CORECS=http://192.168.0.160:3002
-#      - REACT_APP_BACKEND_URL_NODEJS=backend_nodejs_service://backend_nodejs:3001
-#      - REACT_APP_BACKEND_URL_CORECS=backend_corecs_service://backend_corecs:3002
-      - NODE_ENV=development
-      - PORT=3000
+#      - NODE_ENV=development
+      - REACT_APP_BACKEND_URL_NODEJS=http://192.168.0.160:8001
+      - REACT_APP_BACKEND_URL_CORECS=http://192.168.0.160:8002
+#      - REACT_APP_BACKEND_URL_NODEJS=backend_nodejs_service
+#      - REACT_APP_BACKEND_URL_CORECS=backend_corecs_service
+#      - REACT_APP_BACKEND_URL_NODEJS=localhost:8001
+#      - REACT_APP_BACKEND_URL_CORECS=localhost:8002
     command: npm run start
+
