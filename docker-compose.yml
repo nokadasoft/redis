@@ -52,11 +52,11 @@ services:
 #      - ./frontend-react:/app
     environment:
 #      - NODE_ENV=development
-      - REACT_APP_BACKEND_URL_NODEJS=http://192.168.0.160:8001
-      - REACT_APP_BACKEND_URL_CORECS=http://192.168.0.160:8002
+#      - REACT_APP_BACKEND_URL_NODEJS=http://192.168.0.160:8001
+#      - REACT_APP_BACKEND_URL_CORECS=http://192.168.0.160:8002
 #      - REACT_APP_BACKEND_URL_NODEJS=backend_nodejs_service
 #      - REACT_APP_BACKEND_URL_CORECS=backend_corecs_service
-#      - REACT_APP_BACKEND_URL_NODEJS=localhost:8001
-#      - REACT_APP_BACKEND_URL_CORECS=localhost:8002
+      - REACT_APP_BACKEND_URL_NODEJS=http://localhost:8001
+      - REACT_APP_BACKEND_URL_CORECS=http://localhost:8002
     command: npm run start
 

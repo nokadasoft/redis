@@ -11,11 +11,11 @@ var addressNodeJS = process.env.REACT_APP_BACKEND_URL_NODEJS;
 var addressCoreCS = process.env.REACT_APP_BACKEND_URL_CORECS;
 
 if (addressNodeJS == null) {
-  addressNodeJS = domain + ":3001";
+  addressNodeJS = domain + ":8001";
 }
 
 if (addressCoreCS == null) {
-  addressCoreCS = domain + ":3002";
+  addressCoreCS = domain + ":8002";
 }
 
 class ButtonReset extends React.Component {
