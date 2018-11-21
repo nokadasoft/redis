@@ -43,7 +43,6 @@ services:
       - 3000:3000
     environment:
       - NODE_ENV=development
-#      - REACT_APP_BACKEND_URL_NODEJS=http://192.168.0.160:8001
-#      - REACT_APP_BACKEND_URL_CORECS=http://192.168.0.160:8002
+#      - REACT_APP_SOME_ENV_VARIABLE_1=abc123
     command: npm run start
 

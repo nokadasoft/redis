@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import './App.css';
 
 //https://www.linkedin.com/pulse/dockerizing-your-react-app-mike-sparr/
-//var addressNodeJS = process.env.REACT_APP_BACKEND_URL_NODEJS;
-//var addressCoreCS = process.env.REACT_APP_BACKEND_URL_CORECS;
-var addressNodeJS = "";
-var addressCoreCS = "";
+//var envVariable1 = process.env.REACT_APP_SOME_ENV_VARIABLE_1;
+
+var prefixNode = "/vnode";
+var prefixCore = "/vcore";
 
 class ButtonReset extends React.Component {
   handleClick(url) {
@@ -17,7 +17,7 @@ class ButtonReset extends React.Component {
   }
 
   render() {
-    var url = "/api/redis";
+    var url = this.props.prefix + "/api/redis";
     return (
       <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
         Reset
@@ -34,7 +34,7 @@ class ButtonIncrement extends React.Component {
   }
 
   render() {
-    var url = "/api/redis";
+    var url = this.props.prefix + "/api/redis";
     return (
       <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
         Increment
@@ -59,7 +59,7 @@ class ButtonGet extends React.Component {
   }
 
   render() {
-    var url = "/api/redis";
+    var url = this.props.prefix + "/api/redis";
     return (
       <div>
         <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
@@ -81,22 +81,22 @@ class DockerLesson extends Component {
         <tbody>
           <tr>
             <td>
-              NodeJS [address: {addressNodeJS}]
+              NodeJS [prefix: {prefixNode}]
             </td>
             <td>
-              <ButtonReset address={addressNodeJS}/>
-              <ButtonIncrement address={addressNodeJS}/>
-              <ButtonGet address={addressNodeJS}/>
+              <ButtonReset prefix={prefixNode}/>
+              <ButtonIncrement prefix={prefixNode}/>
+              <ButtonGet prefix={prefixNode}/>
             </td>
           </tr>
           <tr>
             <td>
-              CoreSC [address: {addressCoreCS}]
+              CoreSC [prefix: {prefixCore}]
             </td>
             <td>
-              <ButtonReset address={addressCoreCS}/>
-              <ButtonIncrement address={addressCoreCS}/>
-              <ButtonGet address={addressCoreCS}/>
+              <ButtonReset prefix={prefixCore}/>
+              <ButtonIncrement prefix={prefixCore}/>
+              <ButtonGet prefix={prefixCore}/>
             </td>
           </tr>
           </tbody>
