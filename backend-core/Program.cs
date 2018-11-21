@@ -21,6 +21,7 @@ namespace redis_core_back
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel()
                 .UseStartup<Startup>()
+                .UseUrls("http://0.0.0.0:8002")
                 .Build();
     }
 }

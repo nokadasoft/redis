@@ -14,8 +14,6 @@ FROM microsoft/dotnet:aspnetcore-runtime
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-EXPOSE 8002
 ENTRYPOINT ["dotnet", "redis-core-back.dll"]
 
-
-
+EXPOSE 8002

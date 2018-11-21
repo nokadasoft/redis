@@ -3,20 +3,11 @@
 import React, { Component } from 'react';
 import './App.css';
 
-var domain = "http://localhost";
-//const domain = "http://192.168.1.19";
-
 //https://www.linkedin.com/pulse/dockerizing-your-react-app-mike-sparr/
-var addressNodeJS = process.env.REACT_APP_BACKEND_URL_NODEJS;
-var addressCoreCS = process.env.REACT_APP_BACKEND_URL_CORECS;
-
-if (addressNodeJS == null) {
-  addressNodeJS = domain + ":8001";
-}
-
-if (addressCoreCS == null) {
-  addressCoreCS = domain + ":8002";
-}
+//var addressNodeJS = process.env.REACT_APP_BACKEND_URL_NODEJS;
+//var addressCoreCS = process.env.REACT_APP_BACKEND_URL_CORECS;
+var addressNodeJS = "";
+var addressCoreCS = "";
 
 class ButtonReset extends React.Component {
   handleClick(url) {
@@ -26,7 +17,7 @@ class ButtonReset extends React.Component {
   }
 
   render() {
-    var url = this.props.address + "/api/redis";
+    var url = "/api/redis";
     return (
       <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
         Reset
@@ -43,7 +34,7 @@ class ButtonIncrement extends React.Component {
   }
 
   render() {
-    var url = this.props.address + "/api/redis";
+    var url = "/api/redis";
     return (
       <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
         Increment
@@ -68,7 +59,7 @@ class ButtonGet extends React.Component {
   }
 
   render() {
-    var url = this.props.address + "/api/redis";
+    var url = "/api/redis";
     return (
       <div>
         <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
