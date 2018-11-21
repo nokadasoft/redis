@@ -14,14 +14,15 @@ namespace redis_core_back
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            BuildWebHost(args, Environment.GetEnvironmentVariable("PORT")).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHost BuildWebHost(string[] args, string port) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel()
                 .UseStartup<Startup>()
-                .UseUrls("http://0.0.0.0:8002")
+                .UseUrls($"http://0.0.0.0:{port}")
                 .Build();
     }
 }
+

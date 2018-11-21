@@ -12,8 +12,8 @@ services:
     container_name: backend_nodejs_container
     depends_on:
       - redis_service
-    ports:
-      - 8001:8001
+#    ports:
+#      - 8001:8001
     environment:
       - NODE_ENV=development
       - REDIS_URL=redis://react_redis_cache_container
@@ -25,11 +25,12 @@ services:
     container_name: backend_corecs_container
     depends_on:
       - redis_service
-    ports:
-      - 8002:80
+#    ports:
+#      - 8002:80
     environment:
       - NODE_ENV=development
       - REDIS_URL=redis://react_redis_cache_container      
+      - PORT=8002
 
 # https://github.com/mrcoles/node-react-docker-compose/blob/master/docker-compose.yml
   frontend_react_service:
@@ -43,6 +44,8 @@ services:
       - 3000:3000
     environment:
       - NODE_ENV=development
+      - REACT_APP_PORT_BACKEND_NODEJS=8001
+      - REACT_APP_PORT_BACKEND_CORECS=8002
 #      - REACT_APP_SOME_ENV_VARIABLE_1=abc123
     command: npm run start
 
