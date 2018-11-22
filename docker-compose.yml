@@ -49,3 +49,13 @@ services:
 #      - REACT_APP_SOME_ENV_VARIABLE_1=abc123
     command: npm run start
 
+# https://mherman.org/blog/dockerizing-an-angular-app/
+  frontend_angular_service:
+    image: frontend-angular
+    container_name: frontend_angular_container
+    build: ./frontend-angular
+#    volumes:
+#      - '.:/usr/src/app'
+#      - '/usr/src/app/node_modules'
+    ports:
+      - 4200:4200
