@@ -1,0 +1,22 @@
+// {
+//     "/node/*": {
+//         "target": "http://localhost:8001",
+//         "secure": false,
+//         "logLevel": "debug",
+//         "changeOrigin": true,
+//         "pathRewrite": {
+//             "^/node": ""
+//         },
+//         "changeOrigin": true
+//     },
+//     "/core/*": {
+//         "target": "http://localhost:8002",
+//         "secure": false,
+//         "logLevel": "debug",
+//         "changeOrigin": true,
+//         "pathRewrite": {
+//             "^/core": ""
+//         },
+//         "changeOrigin": true
+//     }
+// }

@@ -18,6 +18,8 @@ services:
       - NODE_ENV=development
       - REDIS_URL=redis://react_redis_cache_container
       - PORT=8001
+    ports:
+      - 8001:8001
     command: npm run start
 
   backend_corecs_service:
@@ -27,6 +29,8 @@ services:
       - redis_service
 #    ports:
 #      - 8002:80
+    ports:
+      - 8002:8002
     environment:
       - NODE_ENV=development
       - REDIS_URL=redis://react_redis_cache_container      
@@ -44,6 +48,8 @@ services:
       - 3000:3000
     environment:
       - NODE_ENV=development
+      - REACT_APP_DOMAIN_BACKEND_NODEJS=backend_nodejs_service
+      - REACT_APP_DOMAIN_BACKEND_CORECS=backend_corecs_service
       - REACT_APP_PORT_BACKEND_NODEJS=8001
       - REACT_APP_PORT_BACKEND_CORECS=8002
 #      - REACT_APP_SOME_ENV_VARIABLE_1=abc123
@@ -53,9 +59,21 @@ services:
   frontend_angular_service:
     image: frontend-angular
     container_name: frontend_angular_container
-    build: ./frontend-angular
+    build:
+      context: ./frontend-angular
+      args:
+        DOMAIN_BACKEND_NODEJS: backend_nodejs_service
+        DOMAIN_BACKEND_CORECS: backend_corecs_service
+        PORT_BACKEND_NODEJS: 8001
+        PORT_BACKEND_CORECS: 8002
 #    volumes:
 #      - '.:/usr/src/app'
 #      - '/usr/src/app/node_modules'
     ports:
       - 4200:4200
+    environment:
+      - NODE_ENV=development
+      # - DOMAIN_BACKEND_NODEJS=backend_nodejs_service
+      # - DOMAIN_BACKEND_CORECS=backend_corecs_service
+      # - PORT_BACKEND_NODEJS=8001
+      # - PORT_BACKEND_CORECS=8002

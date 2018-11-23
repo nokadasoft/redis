@@ -6,6 +6,7 @@ import './App.css';
 //https://www.linkedin.com/pulse/dockerizing-your-react-app-mike-sparr/
 //var envVariable1 = process.env.REACT_APP_SOME_ENV_VARIABLE_1;
 
+var title = "frontend-react";
 var prefixNode = "/vnode";
 var prefixCore = "/vcore";
 
@@ -77,6 +78,12 @@ class DockerLesson extends Component {
   render() {
     return (
       <div className="App" >
+
+        <div>
+          <h1>{title}</h1>
+          <img src={logo} className="App-logo" alt="logo" width="50" />
+        </div>
+        
         <table style={{ width: '400px' }}>
         <tbody>
           <tr>
