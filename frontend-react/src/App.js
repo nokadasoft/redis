@@ -1,6 +1,7 @@
 // https://github.com/mrcoles/node-react-docker-compose
 
 import React, { Component } from 'react';
+import logo from './logo.svg';
 import './App.css';
 
 //https://www.linkedin.com/pulse/dockerizing-your-react-app-mike-sparr/
@@ -37,9 +38,7 @@ class ButtonIncrement extends React.Component {
   render() {
     var url = this.props.prefix + "/api/redis";
     return (
-      <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>
-        Increment
-      </button>
+      <button onClick={() => this.handleClick(url)} style={{ float: 'left' }}>+</button>
     );
   }
 }
@@ -81,7 +80,7 @@ class DockerLesson extends Component {
 
         <div>
           <h1>{title}</h1>
-          <img src={logo} className="App-logo" alt="logo" width="50" />
+          <img src={logo} width="75" alt="logo" />
         </div>
         
         <table style={{ width: '400px' }}>

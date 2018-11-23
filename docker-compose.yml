@@ -59,13 +59,10 @@ services:
   frontend_angular_service:
     image: frontend-angular
     container_name: frontend_angular_container
-    build:
-      context: ./frontend-angular
-      args:
-        DOMAIN_BACKEND_NODEJS: backend_nodejs_service
-        DOMAIN_BACKEND_CORECS: backend_corecs_service
-        PORT_BACKEND_NODEJS: 8001
-        PORT_BACKEND_CORECS: 8002
+    build: ./frontend-angular
+    depends_on:
+      - backend_nodejs_service
+      - backend_corecs_service
 #    volumes:
 #      - '.:/usr/src/app'
 #      - '/usr/src/app/node_modules'
@@ -73,7 +70,7 @@ services:
       - 4200:4200
     environment:
       - NODE_ENV=development
-      # - DOMAIN_BACKEND_NODEJS=backend_nodejs_service
-      # - DOMAIN_BACKEND_CORECS=backend_corecs_service
-      # - PORT_BACKEND_NODEJS=8001
-      # - PORT_BACKEND_CORECS=8002
+      - DOMAIN_BACKEND_NODEJS=backend_nodejs_service
+      - DOMAIN_BACKEND_CORECS=backend_corecs_service
+      - PORT_BACKEND_NODEJS=8001
+      - PORT_BACKEND_CORECS=8002
