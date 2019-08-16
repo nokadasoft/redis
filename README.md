@@ -5,6 +5,7 @@ This repository contains 4 projects to be deployed into separate docker containe
 
 * backend-code (port: 8002)  
 Set of 3 Restful endpoints implemented in *`.net core`* served as a back-end to the front-end projects.
+`localhost:8002/swagger` uses *`Swagger`* to list all available endpoints.
 
 * backend-node (port: 8001)  
 Set of 3 RESTful endpoints implemented in *`nodeJS`* served as a back-end to the front-end projects.
@@ -24,8 +25,8 @@ Clone the repository locally. Ensure the environment has docker and docker compo
 Run `docker-compose up -d` in the root folder of the repository.
 
 When containers are up and running the both front-ends will be available as follows:  
-- localhost:3000 // react  
-- localhost:4200 // angular
+- localhost:3000 - react  
+- localhost:4200 - angular
 
 ## Useful docker commands:
 | command | description |
