@@ -11,8 +11,9 @@
 # production
 /build
 /bin
-/obj/Debug
-/.vs/redis-core-back
+/obj
+/.vs
+/.vscode
 
 # misc
 .DS_Store
@@ -24,5 +25,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-/obj/redis-core-back.csproj.nuget*
