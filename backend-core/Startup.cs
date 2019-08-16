@@ -46,7 +46,7 @@ namespace redis_core_back
                 {
                     Version = "v1",
                     Title = "redis backend core API",
-                    Description = "ASP.NET Core Web API fro Redis Backend Core",
+                    Description = "ASP.NET Core Web API for Redis Backend Core",
                     TermsOfService = "None",
                     Contact = new Contact() { Name = "Nokadasoft", Email = "nokadasoft@outlook.com", Url = "www.nokadasoft.com" }
                 });
