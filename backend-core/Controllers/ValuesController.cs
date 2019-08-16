@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace redis_core_back.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
