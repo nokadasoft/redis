@@ -6,6 +6,7 @@ This repository contains 4 projects to be deployed into separate docker containe
 * backend-code (port: 8002)  
 Set of 3 Restful endpoints implemented in *`.net core`* served as a back-end to the front-end projects.
 `localhost:8002/swagger` uses *`Swagger`* to list all available endpoints.
+ https://docs.docker.com/engine/examples/dotnetcore/
 
 * backend-node (port: 8001)  
 Set of 3 RESTful endpoints implemented in *`nodeJS`* served as a back-end to the front-end projects.
