@@ -18,7 +18,8 @@ UI implemented in *`React.js`* to consume both back-end services.
 UI implemented in *`Angular`* to consume both back-end services.
 
 * redis (port: 6379)  
-Deployed into 5th container to be used as data storage for both back-end services.
+Deployed into 5th container to be used as data storage for both back-end services.  
+https://github.com/HugoDF/express-redis-docker
 
 ## Usage
 
